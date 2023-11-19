@@ -14,7 +14,7 @@ export function fetchBreeds() {
 //     const showData = axios.get(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`)
 //     .then(response => response.data[0])
 //     .catch(error => { throw error});
-//     // console.log(showData);
+//     console.log(showData);
 //     return showData;
 // }
 
