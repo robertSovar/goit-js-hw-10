@@ -9,6 +9,7 @@ const catInfoEl = document.querySelector('.cat-info');
 
 document.addEventListener('DOMContentLoaded', () => {
 
+
     selectBreedEl.style.display = 'none';
     loaderEL.classList.remove('loader');
     loaderEL.innerHTML =
@@ -22,11 +23,28 @@ document.addEventListener('DOMContentLoaded', () => {
     loaderEL.style.fontWeight = '700';
     errorEl.style.display = 'none';
     catInfoEl.style.display = 'none';
-
-            
-       
-        getCatList();
-       
+    
+    
+    const breeds = fetchBreeds();
+    breeds.then (res => {
+        res.map(breed => {
+            const option = document.createElement("option");
+            option.value = breed.id;
+            option.textContent = breed.name;
+            selectBreedEl.appendChild(option);
+        }); 
+        selectBreedEl.style.display = 'block';
+    loaderEL.style.display = 'none';
+        const slimSelect = new SlimSelect({
+          select: '.breed-select',
+          placeholder: 'Select a breed',
+          allowDeselect: true,
+          alwaysOn: false,
+        });
+        const slimContainer = document.querySelector('.ss-main');
+        slimContainer.style.width = '20%';
+        console.dir(slimContainer);
+    });
         selectBreedEl.addEventListener('change', (e) => {
                 const target = e.target.value;
                 const catTarget = fetchCatByBreed(target);
@@ -49,20 +67,4 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
 });
-
-function getCatList() {
-    selectBreedEl.style.display = 'block';
-    loaderEL.style.display = 'none';
-    const breeds = fetchBreeds();
-    breeds.then (res => {
-        res.map(breed => {
-            const option = document.createElement("option");
-            option.value = breed.id;
-            option.textContent = breed.name;
-            selectBreedEl.appendChild(option);
-        }); 
-    });
-};
-
-
 
